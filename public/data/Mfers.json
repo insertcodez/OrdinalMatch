@@ -1,5 +1,5 @@
 {
-    "blockheight": 778082,
+    "blockheight": 778644,
     "collectionName": "Mfers",
     "collectionSupply": 10021,
     "contractAddress": "0x79FCDEF22feeD20eDDacbB2587640e45491b757f",
@@ -30223,6 +30223,12 @@
         {
             "hashfield": "9a48851c0760b6a97f75d193f5b92da2c4ca4cec1739f5c6c525eb60e0c41a90",
             "image_url": "https://ipfs.io/ipfs/QmeDbgLvDkgxydPUGv8UBBw1viXAe9gZfd31rLm4UpjBLq",
+            "ordinalmatch": [
+                {
+                    "id": 172077,
+                    "url": "https://ordinals.com/inscription/93c3f9affb8d04e6242c2af6941b3d5174b7dfd40f29338f4c4f05d6fe6dd6f2i0"
+                }
+            ],
             "token_id": "6042"
         },
         {
@@ -50128,5 +50134,5 @@
             "token_id": "10020"
         }
     ],
-    "totalInscribed": 3
+    "totalInscribed": 4
 }
