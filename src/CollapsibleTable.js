@@ -1037,7 +1037,7 @@ export default function CollapsibleTable() {
         lg: "2.3rem",    
         xl: "2.3rem", 
       }}}>
-        Find NFT Collections From Ethereum That Are Perfectly Inscribed As Ordinals Byte-to-Byte.
+        Find Ethereum NFT Collections That Are Perfectly Inscribed As Ordinals Byte-to-Byte.
         </Typography>
       
         <p style={{fontSize:"1.5rem"}}></p>
