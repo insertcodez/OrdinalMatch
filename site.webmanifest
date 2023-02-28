@@ -1,6 +1,6 @@
 {
-    "name": "",
-    "short_name": "",
+    "name": "OrdinalMatch",
+    "short_name": "OrdinalMatch",
     "icons": [
        {
           "src": "/android-chrome-192x192.png",
