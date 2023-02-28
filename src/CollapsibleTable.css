@@ -1,0 +1,92 @@
+
+
+a {
+  color: greenyellow;
+}
+
+a:visited {
+  color: greenyellow;
+}
+
+
+.selected-row {
+  box-shadow: 0 0 20px 0 greenyellow;
+  -webkit-box-shadow: 0 0 20px 0 greenyellow;
+}
+
+.selected-row-i {
+  box-shadow: 0 0 30px 0 #FF7611;
+  -webkit-box-shadow: 0 0 30px 0 #FF7611;
+}
+
+.available-row {
+  transition: box-shadow 0.3s ease, background-color 0.3s ease, transform 0.3s ease;
+  box-shadow: 0 0 0.8px 0 whitesmoke;
+  }
+
+.available-row:hover {
+    background-color: 1e1e1e;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 15px 0 #adff2f;
+  }
+  
+  .available-row:hover * {
+    color: greenyellow;
+    transition: color 0.3s ease;
+  }
+
+  .unavailable-row {
+    transition: box-shadow 0.3s ease, transform 0.3s ease;
+    box-shadow: 0 0 0.8px 0 whitesmoke;
+  }
+
+.unavailable-row:hover {
+    background-color: 1e1e1e;
+    transition: background-color 0.3s ease;
+    box-shadow: 0 0 30px 0 #FF7611;
+  }
+  
+  .unavailable-row:hover * {
+    color: #FF7611;
+    transition: color 0.3s ease;
+  }
+  
+  .dot {
+    display: none;
+  }
+
+  @media (min-width: 550px) {
+    .dot {
+      display: inline-block;
+      width: 10px;
+      height: 10px;
+      border-radius: 50%;
+      background-color: greenyellow;
+      box-shadow: 0 0 5px 2px greenyellow;
+      animation: blink 2s ease-in-out infinite;
+    }
+  }
+  
+  
+  @keyframes blink {
+    0% {
+      opacity: 100;
+    }
+    50% {
+      opacity: 0;
+    }
+    100% {
+      opacity: 100;
+    }
+  }
+  
+
+  
+  
+  
+  
+  
+  
+
+  
+  
