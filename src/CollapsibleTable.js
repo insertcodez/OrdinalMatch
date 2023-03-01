@@ -30,7 +30,8 @@ import Autocomplete from "@mui/material/Autocomplete";
 import { Grid, Typography } from "@mui/material";
 import Divider from "@mui/material/Divider";
 import Howitworks from "./Howitworks";
-
+import Snackbar from '@mui/material/Snackbar';
+import CloseIcon from '@mui/icons-material/Close';
 
 const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
@@ -897,6 +898,33 @@ export default function CollapsibleTable() {
   const [searchedData, setSearchedData] = useState();
   const [collectionSupply, setCollectionSupply] = useState(0);
   const [totalInscribed, setTotalInscribed] = useState(0);
+  const [open, setOpen] = React.useState(false);
+
+  const handleClick = () => {
+    setOpen(true);
+  };
+
+  const handleClose = (event, reason) => {
+    if (reason === 'clickaway') {
+      return;
+    }
+
+    setOpen(false);
+  };
+
+  const action = (
+    <React.Fragment>
+      <IconButton
+        size="small"
+        aria-label="close"
+        color="inherit"
+        onClick={handleClose}
+       
+      >
+        <CloseIcon fontSize="small" />
+      </IconButton>
+    </React.Fragment>
+  );
 
   const handleChangeInsId = (event) => {
     setInsId(event.target.value);
@@ -955,10 +983,8 @@ export default function CollapsibleTable() {
       return false;
     });
     setSearchedData(searchData);
-    if (searchData) {
-      console.log(searchData.ordinalmatch);
-    } else {
-      console.log("No match found");
+    if (!searchData) {
+      handleClick()
     }
   };
   
@@ -1093,7 +1119,23 @@ export default function CollapsibleTable() {
     <>
     
     <Box sx={{ width: "90%", maxWidth: "1080px", mb:"2rem" }}>
-      
+      <div style={{position: "relative", pt:"5px"}}>
+      <Snackbar
+        open={open}
+        autoHideDuration={4000}
+        onClose={handleClose}
+        message="Invalid Collection Inscription"
+        action={action}
+        anchorOrigin={{ vertical: 'top', horizontal: 'center' }}
+        sx={{
+          '& .MuiSnackbarContent-root': {
+            backgroundColor: '#5a0c0c',
+            color: '#ffffff'
+          }
+        }}
+      />
+      </div>
+    
       <Box sx={{ flex: "1 1 100%", my: "1rem" }}>
         <Typography sx={{
       fontSize: {
