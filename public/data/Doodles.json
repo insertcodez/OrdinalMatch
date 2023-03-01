@@ -1,5 +1,5 @@
 {
-    "blockheight": 778644,
+    "blockheight": 778766,
     "collectionName": "Doodles",
     "collectionSupply": 10000,
     "contractAddress": "0x8a90CAb2b38dba80c64b7734e58Ee1dB38B8992e",
@@ -8613,6 +8613,12 @@
         {
             "hashfield": "46a8125ea6ce2500c752b563091846b1a43f6652b878cd1550c2dbab81cb7469",
             "image_url": "https://ipfs.io/ipfs/QmeqRjzwni9NDxZFZKkQp56Ciz3HcknoAXL4ipFXjoXUHP",
+            "ordinalmatch": [
+                {
+                    "id": 226409,
+                    "url": "https://ordinals.com/inscription/6ded4efe98f3643f437854f0bc2cd68284674ba1a9c5fe60c5e74f1cfd23be0fi0"
+                }
+            ],
             "token_id": "1720"
         },
         {
@@ -50023,5 +50029,5 @@
             "token_id": "9999"
         }
     ],
-    "totalInscribed": 3
+    "totalInscribed": 4
 }

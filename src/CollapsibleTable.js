@@ -36,10 +36,11 @@ const LightTooltip = styled(({ className, ...props }) => (
   <Tooltip {...props} classes={{ popper: className }} />
 ))(({ theme }) => ({
   [`& .${tooltipClasses.tooltip}`]: {
-    backgroundColor: "#FF7611",
+    backgroundColor: "rgba(255, 118, 17,0.9)",
     color: "black",
+    fontWeight: 700,
     boxShadow: theme.shadows[1],
-    fontSize: 12,
+    fontSize: 13,
   },
 }));
 
@@ -260,7 +261,7 @@ function EnhancedTableToolbar(props) {
             <>Contract Address : {contractAddress}</>
           )}
         </Typography>
-        
+        <LightTooltip title="This is the latest block the collection token was found." followCursor>
         <Typography
           sx={{
             fontWeight: 500,
@@ -279,7 +280,7 @@ function EnhancedTableToolbar(props) {
             <>Latest Block : {blockHeight}</>
           )}
         </Typography>
-        
+        </LightTooltip>
         <Grid container spacing={0}>
           <Grid item xs={6} sm={4} md={4} lg={3}>
             <Typography
@@ -347,7 +348,9 @@ function Row(props) {
           }}
           align="left"
         >
-          {row.token_id}
+          <LightTooltip title="Token ID" followCursor>
+          <span>{row.token_id}</span>
+          </LightTooltip>
         </TableCell>
         <TableCell
           sx={{
@@ -361,15 +364,20 @@ function Row(props) {
         >
           {row.ordinalmatch ? (
             <>
+            <LightTooltip title="Status" followCursor>
               <span>Inscribed</span>
+              </LightTooltip>
             </>
           ) : (
             <>
+            <LightTooltip title="Status" followCursor>
               <span>Not Inscribed </span>
+              </LightTooltip>
               <span
                 sx={{ display: { xs: "none", sm: "inline-block" } }}
                 className="dot"
               ></span>
+              
             </>
           )}
         </TableCell>
@@ -381,7 +389,9 @@ function Row(props) {
           }}
           align="right"
         >
-          {row.ordinalmatch ? row.ordinalmatch[0].id : "Not Inscribed"}
+          <LightTooltip title="Inscription ID" followCursor>
+          <span>{row.ordinalmatch ? row.ordinalmatch[0].id : "Not Inscribed"}</span>
+          </LightTooltip>
         </TableCell>
 
         <TableCell
@@ -393,7 +403,9 @@ function Row(props) {
           }}
           align="right"
         >
-          {row.ordinalmatch ? row.ordinalmatch.length : "0"}
+          <LightTooltip title="Total Inscriptions" followCursor>
+          <span>{row.ordinalmatch ? row.ordinalmatch.length : "0"}</span>
+          </LightTooltip>
         </TableCell>
         <TableCell
           sx={{
@@ -405,7 +417,7 @@ function Row(props) {
           align="right"
         >
           {row.ordinalmatch ? (
-            <LightTooltip title="View Image" placement="left">
+            <LightTooltip title="View Collection Image" followCursor>
               <button
                 type="button"
                 onClick={() => window.open(row.image_url, "_blank")}
@@ -420,7 +432,7 @@ function Row(props) {
               </button>
             </LightTooltip>
           ) : (
-            <LightTooltip title="View Image" placement="left">
+            <LightTooltip title="View Collection Image" followCursor>
               <button
                 type="button"
                 onClick={() => window.open(row.image_url, "_blank")}
@@ -446,6 +458,7 @@ function Row(props) {
           align="right"
         >
           {row.ordinalmatch ? (
+            <LightTooltip title="View At Ordinals.com" followCursor>
             <button
               type="button"
               onClick={() => window.open(row.ordinalmatch[0].url, "_blank")}
@@ -458,7 +471,9 @@ function Row(props) {
             >
               <OpenInNewRoundedIcon />
             </button>
+            </LightTooltip>
           ) : (
+            <LightTooltip title="Not Inscribed" followCursor>
             <button
               style={{
                 border: "none",
@@ -469,6 +484,7 @@ function Row(props) {
             >
               <OpenInNewRoundedIcon />
             </button>
+            </LightTooltip>
           )}
         </TableCell>
         <TableCell
@@ -481,6 +497,7 @@ function Row(props) {
           align="right"
         >
           {row.ordinalmatch ? (
+            <LightTooltip title="View In Ordswap" followCursor>
             <button
               type="button"
               onClick={() =>
@@ -498,7 +515,9 @@ function Row(props) {
             >
               <OpenInNewRoundedIcon />
             </button>
+            </LightTooltip>
           ) : (
+            <LightTooltip title="Not Inscribed" followCursor>
             <button
               style={{
                 border: "none",
@@ -509,6 +528,7 @@ function Row(props) {
             >
               <OpenInNewRoundedIcon />
             </button>
+            </LightTooltip>
           )}
         </TableCell>
         <TableCell
@@ -873,29 +893,75 @@ export default function CollapsibleTable() {
   const [collection, setCollection] = useState("");
   const [collectionList, setCollectionList] = useState([]);
   const [token, setToken] = useState("");
+  const [insId, setInsId] = useState("");
   const [searchedData, setSearchedData] = useState();
   const [collectionSupply, setCollectionSupply] = useState(0);
   const [totalInscribed, setTotalInscribed] = useState(0);
 
+  const handleChangeInsId = (event) => {
+    setInsId(event.target.value);
+    setToken("");
+  };
+
+  const handleChangeToken = (event) => {
+    setToken(event.target.value);
+    setInsId("");
+  };
+
   const handleKeyPress = (event) => {
     if (event.key === 'Enter') {
-      handleSearch();
+      if (token == "") {
+        handleSearchInscription();
+      }
+      else {
+        handleSearch();
+      }
     }
+  };
+
+  const handleButtonPress = () => {
+      if (token == "") {
+        handleSearchInscription();
+      }
+      else {
+        handleSearch();
+      }
+    
   };
 
   const handleSearch = () => {
     if (openRowIndex !== -2) {
       handleRowClick(-2);
     }
-
-    
-
     const searchData = jsonData.find(
       (obj) => obj.token_id === token.toString()
     );
     setSearchedData(searchData);
     console.log(searchData.token_id);
   };
+
+  const handleSearchInscription = () => {
+    if (openRowIndex !== -2) {
+      handleRowClick(-2);
+    }
+    const searchData = jsonData.find((obj) => {
+      if (obj.ordinalmatch) {
+        for (let i = 0; i < obj.ordinalmatch.length; i++) {
+          if (obj.ordinalmatch[i].id == insId) {
+            return true;
+          }
+        }
+      }
+      return false;
+    });
+    setSearchedData(searchData);
+    if (searchData) {
+      console.log(searchData.ordinalmatch);
+    } else {
+      console.log("No match found");
+    }
+  };
+  
 
   const rows = Array.from({ length: rowsPerPage }, (_, index) => ({
     id: index + 1,
@@ -1044,10 +1110,8 @@ export default function CollapsibleTable() {
       
       </Box>
       <Howitworks/>
-      <div
-        style={{ marginBottom: "2rem", display: "flex", alignItems: "center" }}
-      >
-        <Autocomplete
+      <div style={{ marginBottom: "1.2rem", display: "flex", alignItems: "center" }}>
+      <Autocomplete
           sx={{
             
             "& .MuiAutocomplete-endAdornment .MuiSvgIcon-root": {
@@ -1118,6 +1182,11 @@ export default function CollapsibleTable() {
             />
           )}
         />
+      </div>
+      <div
+        style={{ marginBottom: "2rem", display: "flex", alignItems: "center" }}
+      >
+        
         <TextField onKeyPress={handleKeyPress}
           sx={{
             "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
@@ -1158,10 +1227,58 @@ export default function CollapsibleTable() {
           }}
           label="Search Token ID"
           value={token}
-          onChange={(e) => setToken(e.target.value)}
+          onChange={handleChangeToken}
           style={{ marginRight: "1rem" }}
         />
-        <Button variant="contained" color="primary" onClick={handleSearch}>
+        <TextField onKeyPress={handleKeyPress}
+          sx={{
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#FF7611",
+            },
+            "& .MuiAutocomplete-endAdornment .MuiSvgIcon-root": {
+              color: "#FF7611",
+            },
+            "& .MuiAutocomplete-clearIndicator .MuiSvgIcon-root": {
+              color: "#FF7611",
+            },
+            "& .MuiOutlinedInput-root .MuiOutlinedInput-notchedOutline": {
+              borderColor: "#FF7611",
+              boxShadow: "0 0 10px 0 #FF7611",
+            },
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-notchedOutline":
+              {
+                borderColor: "rgba(173, 255, 47, 0.7)",
+                boxShadow: "0 0 10px 0 greenyellow",
+              },
+            "& .MuiOutlinedInput-root.Mui-focused .MuiOutlinedInput-input": {
+              color: "greenyellow",
+            },
+            "& .MuiInputLabel-outlined.Mui-focused": {
+              color: "greenyellow",
+            },
+            "& .MuiOutlinedInput-input": {
+              color: "##ffffff",
+            },
+            "& label.Mui-focused": {
+              color: "rgba(173, 255, 47, 0.8)",
+            },
+
+            "& .MuiAutocomplete-paper li.MuiAutocomplete-option.Mui-focusVisible, & .MuiAutocomplete-paper li.MuiAutocomplete-option:hover":
+              {
+                backgroundColor: "#ff7611",
+              },
+          }}
+          label="Search Inscription ID"
+          value={insId}
+          onChange={handleChangeInsId}
+          style={{ marginRight: "1rem" }}
+        />
+        <Button variant="contained" color="primary" onClick={handleButtonPress} sx={{
+          '&:hover': {
+            backgroundColor: '#FF7611',
+            color: '#1A2027',
+          },
+        }}>
           Search
         </Button>
       </div>

@@ -9,13 +9,33 @@ const style = {
   top: '50%',
   left: '50%',
   transform: 'translate(-50%, -50%)',
-  width: 400,
+  width: {
+    xs: "90%",
+    sm: "auto",
+    md: "auto",
+    lg: 400,
+    xl: 400,
+  },
   bgcolor: 'background.paper',
   border: '2px solid #000',
   boxShadow: 24,
   p: 4,
+  overflow: {
+    xs: "scroll",
+    sm: "scroll",
+    md: "auto",
+    lg: "scroll",
+    xl: "auto",
+  },
+  height: {
+    xs: "90%",
+    sm: "auto",
+    md: "auto",
+    lg: 700,
+    xl: "auto",
+  },
+    display:'block'
 };
-
 
 export default function BasicModal() {
   const [open, setOpen] = React.useState(false);
